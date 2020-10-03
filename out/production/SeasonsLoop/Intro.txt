@@ -1,2 +1,0 @@
-Je vais créer un fichier
-Le lire dans la console
