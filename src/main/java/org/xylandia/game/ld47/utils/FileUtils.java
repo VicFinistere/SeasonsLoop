@@ -11,16 +11,16 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class FileUtils {
+    private static final String TXT_FILE_EXTENSION = ".txt";
 
     private static void writeInFile(String filename, String line) {
+        final String filePath = filename + TXT_FILE_EXTENSION;
         try {
-            String fileExtension = ".txt";
-            String filePath = filename + fileExtension;
             FileWriter myWriter = new FileWriter(filePath);
             myWriter.write(line);
             myWriter.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while writing into " + filename + ".");
+            System.out.println("An error occurred while writing into " + filePath + ".");
         }
     }
 
@@ -29,48 +29,38 @@ public class FileUtils {
     }
 
     public static void readFile(String filename, boolean isResource) {
-
         // Text file extension by default
-        String fileExtension = ".txt";
-        String filePath = filename + fileExtension;
+        final String filePath = filename + TXT_FILE_EXTENSION;
         try {
+            File file;
             if (isResource) {
-                File file = new File(getUri(filePath));
-                Scanner myReader = new Scanner(file);
-                while (myReader.hasNextLine()) {
-                    String data = myReader.nextLine();
-                    System.out.println(data);
-                }
-                myReader.close();
-
+                file = new File(getUri(filePath));
             } else {
-                File file = new File(filePath);
-                Scanner myReader = new Scanner(file);
-                while (myReader.hasNextLine()) {
-                    String data = myReader.nextLine();
-                    System.out.println(data);
-                }
-                myReader.close();
+                file = new File(filePath);
             }
-
+            readFileContent(file);
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.println("An error occurred while reading " + filename + ".");
         }
+    }
+
+    private static void readFileContent(File file) throws FileNotFoundException {
+        final Scanner myReader = new Scanner(file);
+        while (myReader.hasNextLine()) {
+            final String data = myReader.nextLine();
+            System.out.println(data);
+        }
+        myReader.close();
     }
 
     public static String getUri(String filename) {
         // get the file url, not working in JAR file.
 
-        URL resource = SeasonLoopMain.class.getClassLoader().getResource(filename);
+        final URL resource = SeasonLoopMain.class.getClassLoader().getResource(filename);
         String fileUri = null;
         if (resource == null) {
-            throw new IllegalArgumentException("file not found!");
+            throw new IllegalArgumentException("Cannot find file " + filename + "!");
         } else {
-
-            // failed if files have whitespaces or special characters
-            //return new File(resource.getFile());
-
             try {
                 fileUri = String.valueOf(new File(resource.toURI()));
             } catch (URISyntaxException e) {

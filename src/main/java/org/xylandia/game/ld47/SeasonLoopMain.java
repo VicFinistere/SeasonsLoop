@@ -12,7 +12,7 @@ public class SeasonLoopMain {
         // Read the introduction file
         FileUtils.readFile("Intro");
         if (Objects.equals(InputUtils.askForInput("Please enter exactly 'Autumn' "), "Autumn")) {
-            FileUtils.readFile("Inventory", false);
+            FileUtils.readFile("Autumn");
         } else {
             System.out.println("This is not spelled correctly ...");
         }
