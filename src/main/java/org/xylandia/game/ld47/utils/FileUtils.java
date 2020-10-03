@@ -14,9 +14,9 @@ public class FileUtils {
 
         // Text file extension by default
         String fileExtension = ".txt";
-        filename = filename + fileExtension;
+        String filePath = filename + fileExtension;
         try {
-            File myObj = new File(getUri(filename));
+            File myObj = new File(getUri(filePath));
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
@@ -33,6 +33,7 @@ public class FileUtils {
         // get the file url, not working in JAR file.
 
         URL resource = SeasonLoopMain.class.getClassLoader().getResource(filename);
+        String fileUri = null;
         if (resource == null) {
             throw new IllegalArgumentException("file not found!");
         } else {
@@ -41,11 +42,11 @@ public class FileUtils {
             //return new File(resource.getFile());
 
             try {
-                filename = String.valueOf(new File(resource.toURI()));
+                fileUri = String.valueOf(new File(resource.toURI()));
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
         }
-        return filename;
+        return fileUri;
     }
 }
