@@ -1,5 +1,7 @@
 package org.xylandia.game.ld47;
 
+import org.xylandia.game.ld47.utils.FileUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -35,8 +37,13 @@ public class GameWindow extends JFrame {
         jTextArea.setForeground(Color.WHITE);
         jTextArea.append("Hello World.");
 
+        // Container
+        Container lContentPane = this.getContentPane();
+        lContentPane.setLayout(new GridLayout(2, 1));
+
         // ++ Screen items
-        add(jTextArea);
+        lContentPane.add(new ImageCanvas());
+        lContentPane.add(jTextArea);
 
         // Options :
         // - Visible
