@@ -32,10 +32,10 @@ public class GameWindow extends JFrame {
         setLocation(x, y);
 
         // Text
-        JTextArea jTextArea = new JTextArea();
-        jTextArea.setBackground(Color.BLACK);
-        jTextArea.setForeground(Color.WHITE);
-        jTextArea.append("Hello World.");
+        JLabel lSeasonText = new JLabel(FileUtils.readFile("Intro"));
+        lSeasonText.setBackground(Color.BLACK);
+        lSeasonText.setForeground(Color.WHITE);
+        lSeasonText.setHorizontalAlignment(JLabel.CENTER);
 
         // Container
         Container lContentPane = this.getContentPane();
@@ -43,7 +43,7 @@ public class GameWindow extends JFrame {
 
         // ++ Screen items
         lContentPane.add(new ImageCanvas());
-        lContentPane.add(jTextArea);
+        lContentPane.add(lSeasonText);
 
         // Options :
         // - Visible

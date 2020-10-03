@@ -24,11 +24,11 @@ public class FileUtils {
         }
     }
 
-    public static void readFile(String filename) {
-        readFile(filename, true);
+    public static String readFile(String filename) {
+        return readFile(filename, true);
     }
 
-    public static void readFile(String filename, boolean isResource) {
+    public static String readFile(String filename, boolean isResource) {
         // Text file extension by default
         final String filePath = filename + TXT_FILE_EXTENSION;
         try {
@@ -38,19 +38,21 @@ public class FileUtils {
             } else {
                 file = new File(filePath);
             }
-            readFileContent(file);
+            return readFileContent(file);
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred while reading " + filename + ".");
         }
+        return "";
     }
 
-    private static void readFileContent(File file) throws FileNotFoundException {
+    private static String readFileContent(File file) throws FileNotFoundException {
         final Scanner myReader = new Scanner(file);
+        StringBuilder lTextBuilder = new StringBuilder();
         while (myReader.hasNextLine()) {
-            final String data = myReader.nextLine();
-            System.out.println(data);
+            lTextBuilder.append(myReader.nextLine());
         }
         myReader.close();
+        return lTextBuilder.toString();
     }
 
     public static String getUri(String filename) {

@@ -1,2 +1,4 @@
-Je vais créer un fichier
+<html>
+Je vais créer un fichier<br/>
 Le lire dans la console
+</html>
