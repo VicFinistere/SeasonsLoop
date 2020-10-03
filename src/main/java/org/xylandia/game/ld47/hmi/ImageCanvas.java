@@ -1,4 +1,4 @@
-package org.xylandia.game.ld47;
+package org.xylandia.game.ld47.hmi;
 
 import org.xylandia.game.ld47.utils.FileUtils;
 
@@ -9,6 +9,7 @@ public class ImageCanvas extends Canvas {
 
     public ImageCanvas(String pImage){
         super();
+        setSize(new Dimension(800, 300));
         image = "/" + pImage;
     }
 

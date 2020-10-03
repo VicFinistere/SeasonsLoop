@@ -1,5 +1,6 @@
-package org.xylandia.game.ld47;
+package org.xylandia.game.ld47.hmi;
 
+import org.xylandia.game.ld47.hmi.ImageCanvas;
 import org.xylandia.game.ld47.utils.FileUtils;
 
 import javax.swing.*;
@@ -26,6 +27,8 @@ public class GameWindow extends JFrame {
         getContentPane().setBackground(Color.BLACK);
         setSize(800, 600);
         setPreferredSize(new Dimension(800, 600));
+
+        // Windows position
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dimension.getWidth() - getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - getHeight()) / 2);
@@ -36,19 +39,37 @@ public class GameWindow extends JFrame {
         lSeasonText.setBackground(Color.BLACK);
         lSeasonText.setForeground(Color.WHITE);
         lSeasonText.setHorizontalAlignment(JLabel.CENTER);
+        lSeasonText.setPreferredSize(new Dimension(800, 300));
 
-
+        // Input
+        JTextField lInputZone = new JTextField(">");
+        lInputZone.setPreferredSize(new Dimension(800, 100));
 
         // Container
         Container lContentPane = this.getContentPane();
-        lContentPane.setLayout(new GridLayout(3, 1));
+
+        // Layout
+        GridBagLayout lGridBagLayout = new GridBagLayout();
+        lContentPane.setLayout(lGridBagLayout);
+
+        // Layout constraints
+        GridBagConstraints lConstraints = new GridBagConstraints();
+        lConstraints.ipadx = 0;
+        lConstraints.fill = GridBagConstraints.HORIZONTAL;
 
         // ++ Screen items
-        lContentPane.add(new ImageCanvas("hiver_test.jpg"));
-        lContentPane.add(lSeasonText);
+        ImageCanvas lImageCanvas = new ImageCanvas("hiver_test.jpg");
+        lConstraints.gridx = 0;
+        lContentPane.add(lImageCanvas, lConstraints);
 
-        // Options :
-        // - Visible
+        lConstraints.gridx = 0;
+        lConstraints.weighty = 300;
+        lContentPane.add(lSeasonText, lConstraints);
+
+        lConstraints.weighty = 0;
+        lContentPane.add(lInputZone, lConstraints);
+
+        // Visible
         setVisible(true);
     }
 }

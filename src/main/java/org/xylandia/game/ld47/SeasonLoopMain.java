@@ -1,5 +1,6 @@
 package org.xylandia.game.ld47;
 
+import org.xylandia.game.ld47.hmi.GameWindow;
 import org.xylandia.game.ld47.utils.FileUtils;
 import org.xylandia.game.ld47.utils.InputUtils;
 
