@@ -1,13 +1,12 @@
 package org.xylandia.game.ld47.utils;
 
+import org.apache.commons.io.IOUtils;
 import org.xylandia.game.ld47.SeasonLoopMain;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class FileUtils {
@@ -32,21 +31,28 @@ public class FileUtils {
         // Text file extension by default
         final String filePath = filename + TXT_FILE_EXTENSION;
         try {
-            File file;
             if (isResource) {
-                file = new File(getUri(filePath));
+                return readResourceContent(filePath);
             } else {
-                file = new File(filePath);
+                return readFileContent(filePath);
             }
-            return readFileContent(file);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.println("An error occurred while reading " + filename + ".");
         }
         return "";
     }
 
-    private static String readFileContent(File file) throws FileNotFoundException {
-        final Scanner myReader = new Scanner(file);
+    private static String readResourceContent(String pResourcePath) throws IOException {
+        final InputStream in = FileUtils.class.getClassLoader().getResourceAsStream(pResourcePath);
+        if(in == null){
+            throw new IOException(pResourcePath + " cannot be read.");
+        }
+        return IOUtils.toString(in, StandardCharsets.UTF_8);
+    }
+
+    private static String readFileContent(String pFilePath) throws FileNotFoundException {
+        final File lFile = new File(pFilePath);
+        final Scanner myReader = new Scanner(lFile);
         StringBuilder lTextBuilder = new StringBuilder();
         while (myReader.hasNextLine()) {
             lTextBuilder.append(myReader.nextLine());
@@ -57,7 +63,6 @@ public class FileUtils {
 
     public static String getUri(String filename) {
         // get the file url, not working in JAR file.
-
         final URL resource = SeasonLoopMain.class.getClassLoader().getResource(filename);
         String fileUri = null;
         if (resource == null) {

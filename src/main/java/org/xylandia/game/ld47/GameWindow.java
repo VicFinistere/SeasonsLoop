@@ -37,12 +37,14 @@ public class GameWindow extends JFrame {
         lSeasonText.setForeground(Color.WHITE);
         lSeasonText.setHorizontalAlignment(JLabel.CENTER);
 
+
+
         // Container
         Container lContentPane = this.getContentPane();
-        lContentPane.setLayout(new GridLayout(2, 1));
+        lContentPane.setLayout(new GridLayout(3, 1));
 
         // ++ Screen items
-        lContentPane.add(new ImageCanvas());
+        lContentPane.add(new ImageCanvas("hiver_test.jpg"));
         lContentPane.add(lSeasonText);
 
         // Options :
