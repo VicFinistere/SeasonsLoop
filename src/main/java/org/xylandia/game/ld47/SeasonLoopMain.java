@@ -6,13 +6,12 @@ import org.xylandia.game.ld47.utils.InputUtils;
 import java.util.Objects;
 
 
-
 public class SeasonLoopMain {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         // Read the introduction file
         FileUtils.readFile("Intro");
-        if(Objects.equals(InputUtils.askForInput("Please enter exactly 'Autumn' "), "Autumn")) {
+        if (Objects.equals(InputUtils.askForInput("Please enter exactly 'Autumn' "), "Autumn")) {
             FileUtils.readFile("Autumn");
         } else {
             System.out.println("This is not spelled correctly ...");
